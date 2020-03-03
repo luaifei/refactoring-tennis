@@ -38,20 +38,7 @@ public class TennisGame1 implements TennisGame {
                 score.append("-");
                 tempScore = m_score2;
             }
-            switch (tempScore) {
-                case 0:
-                    score.append("Love");
-                    break;
-                case 1:
-                    score.append("Fifteen");
-                    break;
-                case 2:
-                    score.append("Thirty");
-                    break;
-                case 3:
-                    score.append("Forty");
-                    break;
-            }
+            score.append(getDescriptionForScore(tempScore));
         }
         return score.toString();
     }
@@ -72,16 +59,24 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getDisplayStrWithSameScore() {
-        switch (m_score1) {
-            case 0:
-                return "Love-All";
-            case 1:
-                return "Fifteen-All";
-            case 2:
-                return "Thirty-All";
-            default:
-                return "Deuce";
+        if (m_score1 >= 3) {
+            return "Deuce";
         }
+
+        return getDescriptionForScore(m_score1) + "-All";
     }
 
+    private String getDescriptionForScore(int score) {
+        switch (score) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+            case 3:
+                return "Forty";
+        }
+        return null;
+    }
 }
