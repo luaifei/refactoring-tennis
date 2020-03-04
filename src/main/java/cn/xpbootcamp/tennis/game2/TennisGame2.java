@@ -22,7 +22,6 @@ public class TennisGame2 implements TennisGame {
             return getDisplayWithSamePoint(score);
         }
 
-
         score = getDisplayWithScoreNoMoreThan3();
 
         score = getDisplayWith3MoreScore(score);
@@ -31,24 +30,35 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String getDisplayWith4MorePointAndGap2More(String score) {
-        if (player1Point >= 4 && (player1Point - player2Point) >= 2) {
-            score = "Win for " + player1Name;
+        if (isAnyPlayerWon4MorePoint() && isGapGreaterOrEquals2()) {
+            score = "Win for " + getLeadingPlayerName();
         }
-        if (player2Point >= 4 && (player2Point - player1Point) >= 2) {
-            score = "Win for " + player2Name;
-        }
+
         return score;
     }
 
+    private boolean isAnyPlayerWon4MorePoint() {
+        return player1Point >= 4 || player2Point >= 4;
+    }
+
+    private String getLeadingPlayerName() {
+        return player1Point > player2Point ? player1Name : player2Name;
+    }
+
+    private boolean isGapGreaterOrEquals2() {
+        return Math.abs(player1Point - player2Point) >= 2;
+    }
+
     private String getDisplayWith3MoreScore(String score) {
-        if (player1Point > player2Point && player2Point >= 3) {
-            score = "Advantage " + player1Name;
+        if (player1Point >= 3 && player2Point >= 3 && isGapEqual1Point()) {
+            score = "Advantage " + getLeadingPlayerName();
         }
 
-        if (player2Point > player1Point && player1Point >= 3) {
-            score = "Advantage " +  player2Name;
-        }
         return score;
+    }
+
+    private boolean isGapEqual1Point() {
+        return Math.abs(player1Point - player2Point) == 1;
     }
 
     private String getDisplayWithScoreNoMoreThan3() {
@@ -65,17 +75,8 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String getDisplayWithSamePoint(String score) {
-        if (player1Point < 4) {
-            if (player1Point == 0) {
-                score = "Love";
-            }
-            if (player1Point == 1) {
-                score = "Fifteen";
-            }
-            if (player1Point == 2) {
-                score = "Thirty";
-            }
-            score += "-All";
+        if (player1Point <= 2) {
+            score = ScoreDesc.getDescStr(player1Point) + "-All";
         }
 
         if (player1Point >= 3) {
