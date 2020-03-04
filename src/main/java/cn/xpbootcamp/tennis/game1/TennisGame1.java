@@ -4,8 +4,8 @@ import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame1 implements TennisGame {
 
-    private int m_score1 = 0;
-    private int m_score2 = 0;
+    private int player1Score = 0;
+    private int player2Score = 0;
     private String player1Name;
     private String player2Name;
 
@@ -15,18 +15,18 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if ("player1".equals(playerName)) {
-            m_score1 += 1;
+        if (player1Name.equals(playerName)) {
+            player1Score += 1;
         } else {
-            m_score2 += 1;
+            player2Score += 1;
         }
     }
 
     public String getScore() {
         String score = "";
         int tempScore;
-        if (m_score1 == m_score2) {
-            switch (m_score1) {
+        if (player1Score == player2Score) {
+            switch (player1Score) {
                 case 0:
                     score = "Love-All";
                     break;
@@ -41,24 +41,24 @@ public class TennisGame1 implements TennisGame {
                     break;
 
             }
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
-            int minusResult = m_score1 - m_score2;
+        } else if (player1Score >= 4 || player2Score >= 4) {
+            int minusResult = player1Score - player2Score;
             if (minusResult == 1) {
-                score = "Advantage player1";
+                score = "Advantage " + player1Name;
             } else if (minusResult == -1) {
-                score = "Advantage player2";
+                score = "Advantage " + player2Name;
             } else if (minusResult >= 2) {
-                score = "Win for player1";
+                score = "Win for " + player1Name;
             } else {
-                score = "Win for player2";
+                score = "Win for " + player2Name;
             }
         } else {
             for (int i = 1; i < 3; i++) {
                 if (i == 1) {
-                    tempScore = m_score1;
+                    tempScore = player1Score;
                 } else {
                     score = String.format("%s-", score);
-                    tempScore = m_score2;
+                    tempScore = player2Score;
                 }
                 switch (tempScore) {
                     case 0:
