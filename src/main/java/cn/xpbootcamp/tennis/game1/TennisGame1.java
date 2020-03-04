@@ -5,6 +5,8 @@ import cn.xpbootcamp.tennis.TennisGame;
 public class TennisGame1 implements TennisGame {
     private static String PLAYER1 = "player1";
     private static String PLAYER2 = "player2";
+    private static String ADVANTAGE_PREFIX = "Advantage ";
+    private static String WIN_FOR_PREFIX = "Win for ";
 
     private int score1 = 0;
     private int score2 = 0;
@@ -37,16 +39,17 @@ public class TennisGame1 implements TennisGame {
     private String getDisplayStrWithScoreOver4() {
         int minusResult = score1 - score2;
         if (minusResult == 1) {
-            return "Advantage " + PLAYER1;
+            return ADVANTAGE_PREFIX + PLAYER1;
         }
         if (minusResult == -1) {
-            return "Advantage " + PLAYER2;
-        }
-        if (minusResult >= 2) {
-            return "Win for " + PLAYER1;
+            return ADVANTAGE_PREFIX + PLAYER2;
         }
 
-        return "Win for " + PLAYER2;
+        if (minusResult >= 2) {
+            return WIN_FOR_PREFIX + PLAYER1;
+        }
+
+        return WIN_FOR_PREFIX + PLAYER2;
     }
 
     private String getDisplayStrWithSameScore() {
