@@ -3,8 +3,6 @@ package cn.xpbootcamp.tennis.game1;
 import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame1 implements TennisGame {
-    private static String ADVANTAGE_FORMATTER = "Advantage %s";
-    private static String WIN_FORMATTER = "Win for %s";
 
     private int player1Score = 0;
     private int player2Score = 0;
@@ -47,10 +45,10 @@ public class TennisGame1 implements TennisGame {
 
         int gapScore = Math.abs(minusResult);
         if (gapScore == 1) {
-            return String.format(ADVANTAGE_FORMATTER, leadingPlayerName);
+            return String.format("Advantage %s", leadingPlayerName);
         }
 
-        return String.format(WIN_FORMATTER, leadingPlayerName);
+        return String.format("Win for %s", leadingPlayerName);
     }
 
     private String getDisplayWithSamePoint() {
