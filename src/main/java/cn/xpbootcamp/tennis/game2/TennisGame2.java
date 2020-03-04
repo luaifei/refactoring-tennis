@@ -8,23 +8,51 @@ public class TennisGame2 implements TennisGame {
 
     public String getScore() {
         if (P1point == P2point) {
-            if (P1point < 3) {
-                return getDescriptionForScore(P1point) + "-All";
-            }
-            return "Deuce";
+            return getDisplayStrWithSameScore();
         }
 
         String playerNameWithHighScore = P1point > P2point ? "player1" : "player2";
 
-        if ((P1point >= 4 || P2point >= 4) && Math.abs(P1point - P2point) >= 2) {
-            return "Win for " + playerNameWithHighScore;
+        if (isAnyScoreGreaterOrEqual4() && isGapGreaterThan2AtLeast()) {
+            return getWinDisplayStr(playerNameWithHighScore);
         }
 
-        if (P1point >= 3 && P2point >= 3) {
-            return "Advantage " + playerNameWithHighScore;
+        if (isAllGreaterOrEqual3()) {
+            return getAdvantageDisplayStr(playerNameWithHighScore);
         }
 
+        return getDefaultDisplayStr();
+    }
+
+    private String getAdvantageDisplayStr(String playerNameWithHighScore) {
+        return "Advantage " + playerNameWithHighScore;
+    }
+
+    private String getWinDisplayStr(String playerNameWithHighScore) {
+        return "Win for " + playerNameWithHighScore;
+    }
+
+    private String getDefaultDisplayStr() {
         return getDescriptionForScore(P1point) + "-" + getDescriptionForScore(P2point);
+    }
+
+    private boolean isAllGreaterOrEqual3() {
+        return P1point >= 3 && P2point >= 3;
+    }
+
+    private boolean isGapGreaterThan2AtLeast() {
+        return Math.abs(P1point - P2point) >= 2;
+    }
+
+    private boolean isAnyScoreGreaterOrEqual4() {
+        return P1point >= 4 || P2point >= 4;
+    }
+
+    private String getDisplayStrWithSameScore() {
+        if (P1point < 3) {
+            return getDescriptionForScore(P1point) + "-All";
+        }
+        return "Deuce";
     }
 
     private String getDescriptionForScore(int score) {
