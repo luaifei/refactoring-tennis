@@ -25,19 +25,19 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
         if (player1Score == player2Score) {
-            return getDisplayStrWithSamePoint();
+            return getDisplayWithSamePoint();
         }
 
         if (player1Score >= 4 || player2Score >= 4) {
             return getDisplayWithOnePlayerWon4MorePoints();
         }
 
-        return getDefaultDisplay(score);
+        return getDefaultDisplay();
     }
 
-    private String getDefaultDisplay(String score) {
+    private String getDefaultDisplay() {
+        String score = "";
         int tempScore;
         for (int i = 1; i < 3; i++) {
             if (i == 1) {
@@ -46,19 +46,9 @@ public class TennisGame1 implements TennisGame {
                 score = String.format("%s-", score);
                 tempScore = player2Score;
             }
-            switch (tempScore) {
-                case 0:
-                    score += "Love";
-                    break;
-                case 1:
-                    score += "Fifteen";
-                    break;
-                case 2:
-                    score += "Thirty";
-                    break;
-                case 3:
-                    score += "Forty";
-                    break;
+
+            if (tempScore <= 3) {
+                score += ScoreDesc.getDescStr(tempScore);
             }
         }
         return score;
@@ -83,23 +73,20 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-    private String getDisplayStrWithSamePoint() {
-        String score;
-        switch (player1Score) {
-            case 0:
-                score = "Love-All";
-                break;
-            case 1:
-                score = "Fifteen-All";
-                break;
-            case 2:
-                score = "Thirty-All";
-                break;
-            default:
-                score = "Deuce";
-                break;
-
+    private String getDisplayWithSamePoint() {
+        if (player1Score <= 2) {
+            return ScoreDesc.getDescStr(player1Score) + "-All";
         }
-        return score;
+
+        return "Deuce";
+    }
+
+    enum ScoreDesc {
+        Love, Fifteen, Thirty, Forty;
+
+        public static String getDescStr(int score) {
+            ScoreDesc[] values = ScoreDesc.values();
+            return values[score].toString();
+        }
     }
 }
