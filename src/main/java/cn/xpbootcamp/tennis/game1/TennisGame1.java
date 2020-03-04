@@ -37,21 +37,8 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getDefaultDisplay() {
-        String score = "";
-        int tempScore;
-        for (int i = 1; i < 3; i++) {
-            if (i == 1) {
-                tempScore = player1Score;
-            } else {
-                score = String.format("%s-", score);
-                tempScore = player2Score;
-            }
-
-            if (tempScore <= 3) {
-                score += ScoreDesc.getDescStr(tempScore);
-            }
-        }
-        return score;
+        return String.format("%s-%s", ScoreDesc.getDescStr(player1Score),
+                ScoreDesc.getDescStr(player2Score));
     }
 
     private String getDisplayWithOnePlayerWon4MorePoints() {
