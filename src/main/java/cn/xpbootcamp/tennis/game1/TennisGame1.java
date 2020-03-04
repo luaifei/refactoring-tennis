@@ -3,6 +3,8 @@ package cn.xpbootcamp.tennis.game1;
 import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame1 implements TennisGame {
+    private static String ADVANTAGE_FORMATTER = "Advantage %s";
+    private static String WIN_FORMATTER = "Win for %s";
 
     private int player1Score = 0;
     private int player2Score = 0;
@@ -24,57 +26,79 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        int tempScore;
         if (player1Score == player2Score) {
-            switch (player1Score) {
+            return getDisplayStrWithSamePoint();
+        }
+
+        if (player1Score >= 4 || player2Score >= 4) {
+            return getDisplayWithOnePlayerWon4MorePoints();
+        }
+
+        return getDefaultDisplay(score);
+    }
+
+    private String getDefaultDisplay(String score) {
+        int tempScore;
+        for (int i = 1; i < 3; i++) {
+            if (i == 1) {
+                tempScore = player1Score;
+            } else {
+                score = String.format("%s-", score);
+                tempScore = player2Score;
+            }
+            switch (tempScore) {
                 case 0:
-                    score = "Love-All";
+                    score += "Love";
                     break;
                 case 1:
-                    score = "Fifteen-All";
+                    score += "Fifteen";
                     break;
                 case 2:
-                    score = "Thirty-All";
+                    score += "Thirty";
                     break;
-                default:
-                    score = "Deuce";
+                case 3:
+                    score += "Forty";
                     break;
+            }
+        }
+        return score;
+    }
 
-            }
-        } else if (player1Score >= 4 || player2Score >= 4) {
-            int minusResult = player1Score - player2Score;
-            if (minusResult == 1) {
-                score = "Advantage " + player1Name;
-            } else if (minusResult == -1) {
-                score = "Advantage " + player2Name;
-            } else if (minusResult >= 2) {
-                score = "Win for " + player1Name;
-            } else {
-                score = "Win for " + player2Name;
-            }
+    private String getDisplayWithOnePlayerWon4MorePoints() {
+        String score;
+        int minusResult = player1Score - player2Score;
+
+        if (minusResult == 1) {
+            score = String.format(ADVANTAGE_FORMATTER, player1Name);
+        } else if (minusResult == -1) {
+            score = String.format(ADVANTAGE_FORMATTER, player2Name);
         } else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) {
-                    tempScore = player1Score;
-                } else {
-                    score = String.format("%s-", score);
-                    tempScore = player2Score;
-                }
-                switch (tempScore) {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
+            if (minusResult >= 2) {
+                score = String.format(WIN_FORMATTER, player1Name);
+            } else {
+                score = String.format(WIN_FORMATTER, player2Name);
             }
+        }
+
+        return score;
+    }
+
+    private String getDisplayStrWithSamePoint() {
+        String score;
+        switch (player1Score) {
+            case 0:
+                score = "Love-All";
+                break;
+            case 1:
+                score = "Fifteen-All";
+                break;
+            case 2:
+                score = "Thirty-All";
+                break;
+            default:
+                score = "Deuce";
+                break;
+
         }
         return score;
     }
