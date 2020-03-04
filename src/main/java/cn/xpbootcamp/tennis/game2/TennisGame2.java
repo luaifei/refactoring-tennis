@@ -18,23 +18,12 @@ public class TennisGame2 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        if (player1Point == player2Point && player1Point < 4) {
-            if (player1Point == 0) {
-                score = "Love";
-            }
-            if (player1Point == 1) {
-                score = "Fifteen";
-            }
-            if (player1Point == 2) {
-                score = "Thirty";
-            }
-            score += "-All";
-        }
-        if (player1Point == player2Point && player1Point >= 3) {
-            score = "Deuce";
+        if (player1Point == player2Point) {
+            return getDisplayWithSamePoint(score);
         }
 
-        if (player1Point > 0 && player2Point == 0) {
+
+        if (player2Point == 0) {
             if (player1Point == 1) {
                 player1Result = "Fifteen";
             }
@@ -48,7 +37,7 @@ public class TennisGame2 implements TennisGame {
             player2Result = "Love";
             score = player1Result + "-" + player2Result;
         }
-        if (player2Point > 0 && player1Point == 0) {
+        if (player1Point == 0) {
             if (player2Point == 1) {
                 player2Result = "Fifteen";
             }
@@ -102,11 +91,31 @@ public class TennisGame2 implements TennisGame {
             score = "Advantage " +  player2Name;
         }
 
-        if (player1Point >= 4 && player2Point >= 0 && (player1Point - player2Point) >= 2) {
+        if (player1Point >= 4 && (player1Point - player2Point) >= 2) {
             score = "Win for " + player1Name;
         }
-        if (player2Point >= 4 && player1Point >= 0 && (player2Point - player1Point) >= 2) {
+        if (player2Point >= 4 && (player2Point - player1Point) >= 2) {
             score = "Win for " + player2Name;
+        }
+        return score;
+    }
+
+    private String getDisplayWithSamePoint(String score) {
+        if (player1Point < 4) {
+            if (player1Point == 0) {
+                score = "Love";
+            }
+            if (player1Point == 1) {
+                score = "Fifteen";
+            }
+            if (player1Point == 2) {
+                score = "Thirty";
+            }
+            score += "-All";
+        }
+
+        if (player1Point >= 3) {
+            score = "Deuce";
         }
         return score;
     }
