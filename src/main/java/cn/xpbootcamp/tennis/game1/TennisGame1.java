@@ -42,22 +42,18 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getDisplayWithOnePlayerWon4MorePoints() {
-        String score;
         int minusResult = player1Score - player2Score;
 
         if (minusResult == 1) {
-            score = String.format(ADVANTAGE_FORMATTER, player1Name);
-        } else if (minusResult == -1) {
-            score = String.format(ADVANTAGE_FORMATTER, player2Name);
-        } else {
-            if (minusResult >= 2) {
-                score = String.format(WIN_FORMATTER, player1Name);
-            } else {
-                score = String.format(WIN_FORMATTER, player2Name);
-            }
+            return String.format(ADVANTAGE_FORMATTER, player1Name);
         }
-
-        return score;
+        if (minusResult == -1) {
+            return String.format(ADVANTAGE_FORMATTER, player2Name);
+        }
+        if (minusResult >= 2) {
+            return String.format(WIN_FORMATTER, player1Name);
+        }
+        return String.format(WIN_FORMATTER, player2Name);
     }
 
     private String getDisplayWithSamePoint() {
