@@ -42,7 +42,4 @@ dependencies {
     testCompile 'org.mockito:mockito-junit-jupiter:2.17.0'
     testCompile 'junit:junit:4.12'
     testImplementation 'com.approvaltests:approvaltests:4.0.2'
-
-    compileOnly 'org.projectlombok:lombok:1.18.10'
-    annotationProcessor 'org.projectlombok:lombok:1.18.10'
 }

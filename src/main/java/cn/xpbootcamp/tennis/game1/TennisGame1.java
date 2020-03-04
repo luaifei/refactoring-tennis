@@ -3,56 +3,72 @@ package cn.xpbootcamp.tennis.game1;
 import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame1 implements TennisGame {
-    private static String PLAYER1 = "player1";
 
-    private int score1 = 0;
-    private int score2 = 0;
+    private int m_score1 = 0;
+    private int m_score2 = 0;
+    private String player1Name;
+    private String player2Name;
+
+    public TennisGame1(String player1Name, String player2Name) {
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
+    }
 
     public void wonPoint(String playerName) {
-
-        if (PLAYER1.equals(playerName)) {
-            score1 += 1;
-        } else {
-            score2 += 1;
-        }
+        if (playerName == "player1")
+            m_score1 += 1;
+        else
+            m_score2 += 1;
     }
 
     public String getScore() {
-        if (score1 == score2) {
-            return getDisplayStrWithSameScore();
+        String score = "";
+        int tempScore = 0;
+        if (m_score1 == m_score2) {
+            switch (m_score1) {
+                case 0:
+                    score = "Love-All";
+                    break;
+                case 1:
+                    score = "Fifteen-All";
+                    break;
+                case 2:
+                    score = "Thirty-All";
+                    break;
+                default:
+                    score = "Deuce";
+                    break;
+
+            }
+        } else if (m_score1 >= 4 || m_score2 >= 4) {
+            int minusResult = m_score1 - m_score2;
+            if (minusResult == 1) score = "Advantage player1";
+            else if (minusResult == -1) score = "Advantage player2";
+            else if (minusResult >= 2) score = "Win for player1";
+            else score = "Win for player2";
+        } else {
+            for (int i = 1; i < 3; i++) {
+                if (i == 1) tempScore = m_score1;
+                else {
+                    score += "-";
+                    tempScore = m_score2;
+                }
+                switch (tempScore) {
+                    case 0:
+                        score += "Love";
+                        break;
+                    case 1:
+                        score += "Fifteen";
+                        break;
+                    case 2:
+                        score += "Thirty";
+                        break;
+                    case 3:
+                        score += "Forty";
+                        break;
+                }
+            }
         }
-
-        if (score1 >= 4 || score2 >= 4) {
-            return getDisplayStrWithScoreOver4();
-        }
-
-        return getDefaultDisplayStr();
-    }
-
-    private String getDefaultDisplayStr() {
-        return getDescriptionForScore(score1) + "-" + getDescriptionForScore(score2);
-    }
-
-    private String getDisplayStrWithScoreOver4() {
-        int minusResult = score1 - score2;
-        String PLAYER2 = "player2";
-        String higherScorePlayerName = minusResult > 0 ? PLAYER1 : PLAYER2;
-
-        return (minusResult * minusResult) <= 1 ?
-                "Advantage " + higherScorePlayerName :
-                "Win for " + higherScorePlayerName;
-    }
-
-    private String getDisplayStrWithSameScore() {
-        if (score1 >= 3) {
-            return "Deuce";
-        }
-
-        return getDescriptionForScore(score1) + "-All";
-    }
-
-    private String getDescriptionForScore(int score) {
-        String[] displayStrArray = new String[] {"Love", "Fifteen", "Thirty", "Forty"};
-        return displayStrArray[score];
+        return score;
     }
 }

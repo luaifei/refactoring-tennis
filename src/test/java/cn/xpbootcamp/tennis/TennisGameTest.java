@@ -4,7 +4,6 @@ package cn.xpbootcamp.tennis;
 import cn.xpbootcamp.tennis.game1.TennisGame1;
 import cn.xpbootcamp.tennis.game2.TennisGame2;
 import cn.xpbootcamp.tennis.game3.TennisGame3;
-import cn.xpbootcamp.tennis.game4.MyTennisGame;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -64,14 +63,14 @@ class TennisGameTest {
     @ParameterizedTest
     @MethodSource("getAllScores")
     public void checkAllScoresTennisGame1(List<Object> params) {
-        TennisGame1 game = new TennisGame1();
+        TennisGame1 game = new TennisGame1("player1", "player2");
         checkAllScores(params, game);
     }
 
     @ParameterizedTest
     @MethodSource("getAllScores")
     public void checkAllScoresTennisGame2(List<Object> params) {
-        TennisGame2 game = new TennisGame2();
+        TennisGame2 game = new TennisGame2("player1", "player2");
         checkAllScores(params, game);
     }
 
@@ -79,13 +78,6 @@ class TennisGameTest {
     @MethodSource("getAllScores")
     public void checkAllScoresTennisGame3(List<Object> params) {
         TennisGame3 game = new TennisGame3("player1", "player2");
-        checkAllScores(params, game);
-    }
-
-    @ParameterizedTest
-    @MethodSource("getAllScores")
-    public void checkAllScoresMyTennisGame(List<Object> params) {
-        MyTennisGame game = new MyTennisGame("player1", "player2");
         checkAllScores(params, game);
     }
 
