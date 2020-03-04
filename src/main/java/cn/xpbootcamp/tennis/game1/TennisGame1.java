@@ -43,17 +43,14 @@ public class TennisGame1 implements TennisGame {
 
     private String getDisplayWithOnePlayerWon4MorePoints() {
         int minusResult = player1Score - player2Score;
+        String leadingPlayerName = minusResult > 0 ? player1Name : player2Name;
 
-        if (minusResult == 1) {
-            return String.format(ADVANTAGE_FORMATTER, player1Name);
+        int gapScore = Math.abs(minusResult);
+        if (gapScore == 1) {
+            return String.format(ADVANTAGE_FORMATTER, leadingPlayerName);
         }
-        if (minusResult == -1) {
-            return String.format(ADVANTAGE_FORMATTER, player2Name);
-        }
-        if (minusResult >= 2) {
-            return String.format(WIN_FORMATTER, player1Name);
-        }
-        return String.format(WIN_FORMATTER, player2Name);
+
+        return String.format(WIN_FORMATTER, leadingPlayerName);
     }
 
     private String getDisplayWithSamePoint() {
