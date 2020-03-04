@@ -3,8 +3,6 @@ package cn.xpbootcamp.tennis.game4.displayrule;
 import cn.xpbootcamp.tennis.game4.MyTennisGame;
 import cn.xpbootcamp.tennis.game4.Player;
 
-import java.util.Arrays;
-
 public class WonDisplayRule extends BaseScoreDisplayRule {
 
     @Override
