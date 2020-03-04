@@ -31,19 +31,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String getDefaultDisplayStr() {
-        StringBuilder score = new StringBuilder();
-        int tempScore = 0;
-
-        for (int i = 1; i < 3; i++) {
-            if (i == 1) {
-                tempScore = score1;
-            } else {
-                score.append("-");
-                tempScore = score2;
-            }
-            score.append(getDescriptionForScore(tempScore));
-        }
-        return score.toString();
+        return getDescriptionForScore(score1) + "-" + getDescriptionForScore(score2);
     }
 
     private String getDisplayStrWithScoreOver4() {
