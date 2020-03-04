@@ -22,19 +22,14 @@ public class TennisGame2 implements TennisGame {
             return getDisplayWithSamePoint(score);
         }
 
-        score = getDisplayWithScoreNoMoreThan3();
-
-        score = getDisplayWith3MoreScore(score);
-
-        return getDisplayWith4MorePointAndGap2More(score);
-    }
-
-    private String getDisplayWith4MorePointAndGap2More(String score) {
-        if (isAnyPlayerWon4MorePoint() && isGapGreaterOrEquals2()) {
-            score = "Win for " + getLeadingPlayerName();
+        if (player1Point >= 3 && player2Point >= 3 && isGapEqual1Point()) {
+            return "Advantage " + getLeadingPlayerName();
         }
 
-        return score;
+        if (isAnyPlayerWon4MorePoint() && isGapGreaterOrEquals2()) {
+            return "Win for " + getLeadingPlayerName();
+        }
+        return getDisplayWithScoreNoMoreThan3();
     }
 
     private boolean isAnyPlayerWon4MorePoint() {
@@ -47,14 +42,6 @@ public class TennisGame2 implements TennisGame {
 
     private boolean isGapGreaterOrEquals2() {
         return Math.abs(player1Point - player2Point) >= 2;
-    }
-
-    private String getDisplayWith3MoreScore(String score) {
-        if (player1Point >= 3 && player2Point >= 3 && isGapEqual1Point()) {
-            score = "Advantage " + getLeadingPlayerName();
-        }
-
-        return score;
     }
 
     private boolean isGapEqual1Point() {
