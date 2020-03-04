@@ -23,66 +23,24 @@ public class TennisGame2 implements TennisGame {
         }
 
 
-        if (player2Point == 0) {
-            if (player1Point == 1) {
-                player1Result = "Fifteen";
-            }
-            if (player1Point == 2) {
-                player1Result = "Thirty";
-            }
-            if (player1Point == 3) {
-                player1Result = "Forty";
-            }
+        score = getDisplayWithScoreNoMoreThan3();
 
-            player2Result = "Love";
-            score = player1Result + "-" + player2Result;
-        }
-        if (player1Point == 0) {
-            if (player2Point == 1) {
-                player2Result = "Fifteen";
-            }
-            if (player2Point == 2) {
-                player2Result = "Thirty";
-            }
-            if (player2Point == 3) {
-                player2Result = "Forty";
-            }
+        score = getDisplayWith3MoreScore(score);
 
-            player1Result = "Love";
-            score = player1Result + "-" + player2Result;
-        }
+        return getDisplayWith4MorePointAndGap2More(score);
+    }
 
-        if (player1Point > player2Point && player1Point < 4) {
-            if (player1Point == 2) {
-                player1Result = "Thirty";
-            }
-            if (player1Point == 3) {
-                player1Result = "Forty";
-            }
-            if (player2Point == 1) {
-                player2Result = "Fifteen";
-            }
-            if (player2Point == 2) {
-                player2Result = "Thirty";
-            }
-            score = player1Result + "-" + player2Result;
+    private String getDisplayWith4MorePointAndGap2More(String score) {
+        if (player1Point >= 4 && (player1Point - player2Point) >= 2) {
+            score = "Win for " + player1Name;
         }
-        if (player2Point > player1Point && player2Point < 4) {
-            if (player2Point == 2) {
-                player2Result = "Thirty";
-            }
-            if (player2Point == 3) {
-                player2Result = "Forty";
-            }
-            if (player1Point == 1) {
-                player1Result = "Fifteen";
-            }
-            if (player1Point == 2) {
-                player1Result = "Thirty";
-            }
-            score = player1Result + "-" + player2Result;
+        if (player2Point >= 4 && (player2Point - player1Point) >= 2) {
+            score = "Win for " + player2Name;
         }
+        return score;
+    }
 
+    private String getDisplayWith3MoreScore(String score) {
         if (player1Point > player2Point && player2Point >= 3) {
             score = "Advantage " + player1Name;
         }
@@ -90,13 +48,19 @@ public class TennisGame2 implements TennisGame {
         if (player2Point > player1Point && player1Point >= 3) {
             score = "Advantage " +  player2Name;
         }
+        return score;
+    }
 
-        if (player1Point >= 4 && (player1Point - player2Point) >= 2) {
-            score = "Win for " + player1Name;
+    private String getDisplayWithScoreNoMoreThan3() {
+        String score;
+        if (player1Point <= 3) {
+            player1Result = ScoreDesc.getDescStr(player1Point);
         }
-        if (player2Point >= 4 && (player2Point - player1Point) >= 2) {
-            score = "Win for " + player2Name;
+        if (player2Point <= 3) {
+            player2Result = ScoreDesc.getDescStr(player2Point);
         }
+
+        score = player1Result + "-" + player2Result;
         return score;
     }
 
@@ -133,6 +97,15 @@ public class TennisGame2 implements TennisGame {
             P1Score();
         } else {
             P2Score();
+        }
+    }
+
+    enum ScoreDesc {
+        Love, Fifteen, Thirty, Forty;
+
+        public static String getDescStr(int score) {
+            ScoreDesc[] values = ScoreDesc.values();
+            return values[score].toString();
         }
     }
 }
