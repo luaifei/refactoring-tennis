@@ -76,17 +76,8 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String getDescriptionForScore(int score) {
-        switch (score) {
-            case 0:
-                return "Love";
-            case 1:
-                return "Fifteen";
-            case 2:
-                return "Thirty";
-            case 3:
-                return "Forty";
-        }
-        return null;
+        String[] displayStrArray = new String[] {"Love", "Fifteen", "Thirty", "Forty"};
+        return displayStrArray[score];
     }
 
     public void wonPoint(String player) {
