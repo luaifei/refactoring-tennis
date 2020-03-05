@@ -6,8 +6,6 @@ public class TennisGame2 implements TennisGame {
     public int player1Point = 0;
     public int player2Point = 0;
 
-    public String player1Result = "";
-    public String player2Result = "";
     private String player1Name;
     private String player2Name;
 
@@ -49,15 +47,11 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String getDisplayWithScoreNoMoreThan3() {
-        String score;
-        if (player1Point <= 3) {
-            player1Result = ScoreDesc.getDescStr(player1Point);
-        }
-        if (player2Point <= 3) {
-            player2Result = ScoreDesc.getDescStr(player2Point);
+        String score = "";
+        if (player1Point <= 3 && player2Point <= 3) {
+            score = ScoreDesc.getDescStr(player1Point) + "-" + ScoreDesc.getDescStr(player2Point);
         }
 
-        score = player1Result + "-" + player2Result;
         return score;
     }
 
