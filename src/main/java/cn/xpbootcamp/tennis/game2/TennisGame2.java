@@ -15,9 +15,9 @@ public class TennisGame2 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
+
         if (player1Point == player2Point) {
-            return getDisplayWithSamePoint(score);
+            return getDisplayWithSamePoint();
         }
 
         if (player1Point >= 3 && player2Point >= 3 && isGapEqual1Point()) {
@@ -27,7 +27,8 @@ public class TennisGame2 implements TennisGame {
         if (isAnyPlayerWon4MorePoint() && isGapGreaterOrEquals2()) {
             return "Win for " + getLeadingPlayerName();
         }
-        return getDisplayWithScoreNoMoreThan3();
+
+        return ScoreDesc.getDescStr(player1Point) + "-" + ScoreDesc.getDescStr(player2Point);
     }
 
     private boolean isAnyPlayerWon4MorePoint() {
@@ -46,24 +47,12 @@ public class TennisGame2 implements TennisGame {
         return Math.abs(player1Point - player2Point) == 1;
     }
 
-    private String getDisplayWithScoreNoMoreThan3() {
-        String score = "";
-        if (player1Point <= 3 && player2Point <= 3) {
-            score = ScoreDesc.getDescStr(player1Point) + "-" + ScoreDesc.getDescStr(player2Point);
-        }
-
-        return score;
-    }
-
-    private String getDisplayWithSamePoint(String score) {
+    private String getDisplayWithSamePoint() {
         if (player1Point <= 2) {
-            score = ScoreDesc.getDescStr(player1Point) + "-All";
+            return ScoreDesc.getDescStr(player1Point) + "-All";
         }
 
-        if (player1Point >= 3) {
-            score = "Deuce";
-        }
-        return score;
+        return "Deuce";
     }
 
     public void P1Score() {
