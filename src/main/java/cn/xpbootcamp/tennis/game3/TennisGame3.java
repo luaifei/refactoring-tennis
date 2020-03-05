@@ -16,14 +16,22 @@ public class TennisGame3 implements TennisGame {
 
     public String getScore() {
         if (isEveryPlayerWonLessThan4Point() && !isBothPlayerWon3Point()) {
-            String frontDisplayStr = getDisplayStr(player2Score);
-            return (player2Score == player1Score) ? frontDisplayStr + "-All" : frontDisplayStr + "-" + getDisplayStr(player1Score);
+            return getDisplayStrWithAllWonLessThan4ButNotBothWon3Point();
         }
+
         if (player2Score == player1Score) {
             return "Deuce";
         }
-        String frontDisplayStr = player2Score > player1Score ? player1Name : player2Name;
-        return isGapEquals1() ? "Advantage " + frontDisplayStr : "Win for " + frontDisplayStr;
+
+        String leadingPlayerName = player2Score > player1Score ? player1Name : player2Name;
+        return isGapEquals1() ? "Advantage " + leadingPlayerName : "Win for " + leadingPlayerName;
+    }
+
+    private String getDisplayStrWithAllWonLessThan4ButNotBothWon3Point() {
+        String frontDisplayStr = getDisplayStr(player2Score);
+        return (player2Score == player1Score) ?
+                frontDisplayStr + "-All" :
+                frontDisplayStr + "-" + getDisplayStr(player1Score);
     }
 
     private boolean isGapEquals1() {
