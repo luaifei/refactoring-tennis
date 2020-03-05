@@ -15,17 +15,32 @@ public class TennisGame3 implements TennisGame {
     }
 
     public String getScore() {
-        String frontDisplayStr;
-        if (player2Score < 4 && player1Score < 4 && !(player2Score + player1Score == 6)) {
-            String[] displayStrArray = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
-            frontDisplayStr = displayStrArray[player2Score];
-            return (player2Score == player1Score) ? frontDisplayStr + "-All" : frontDisplayStr + "-" + displayStrArray[player1Score];
+        if (isEveryPlayerWonLessThan4Point() && !isBothPlayerWon3Point()) {
+            String frontDisplayStr = getDisplayStr(player2Score);
+            return (player2Score == player1Score) ? frontDisplayStr + "-All" : frontDisplayStr + "-" + getDisplayStr(player1Score);
         }
         if (player2Score == player1Score) {
             return "Deuce";
         }
-        frontDisplayStr = player2Score > player1Score ? player1Name : player2Name;
-        return ((player2Score - player1Score)*(player2Score - player1Score) == 1) ? "Advantage " + frontDisplayStr : "Win for " + frontDisplayStr;
+        String frontDisplayStr = player2Score > player1Score ? player1Name : player2Name;
+        return isGapEquals1() ? "Advantage " + frontDisplayStr : "Win for " + frontDisplayStr;
+    }
+
+    private boolean isGapEquals1() {
+        return Math.abs(player2Score - player1Score) == 1;
+    }
+
+    private boolean isBothPlayerWon3Point() {
+        return player2Score == 3 && player1Score == 3;
+    }
+
+    private boolean isEveryPlayerWonLessThan4Point() {
+        return player2Score < 4 && player1Score < 4;
+    }
+
+    private String getDisplayStr(int score) {
+        String[] displayStrArray = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+        return displayStrArray[score];
     }
 
     public void wonPoint(String playerName) {
