@@ -15,18 +15,17 @@ public class TennisGame3 implements TennisGame {
     }
 
     public String getScore() {
-        String s;
+        String frontDisplayStr;
         if (player2Score < 4 && player1Score < 4 && !(player2Score + player1Score == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
-            s = p[player2Score];
-            return (player2Score == player1Score) ? s + "-All" : s + "-" + p[player1Score];
-        } else {
-            if (player2Score == player1Score) {
-                return "Deuce";
-            }
-            s = player2Score > player1Score ? player1Name : player2Name;
-            return ((player2Score - player1Score)*(player2Score - player1Score) == 1) ? "Advantage " + s : "Win for " + s;
+            String[] displayStrArray = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+            frontDisplayStr = displayStrArray[player2Score];
+            return (player2Score == player1Score) ? frontDisplayStr + "-All" : frontDisplayStr + "-" + displayStrArray[player1Score];
         }
+        if (player2Score == player1Score) {
+            return "Deuce";
+        }
+        frontDisplayStr = player2Score > player1Score ? player1Name : player2Name;
+        return ((player2Score - player1Score)*(player2Score - player1Score) == 1) ? "Advantage " + frontDisplayStr : "Win for " + frontDisplayStr;
     }
 
     public void wonPoint(String playerName) {
